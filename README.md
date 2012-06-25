@@ -3,6 +3,23 @@ rack-static-sample
 
 Sample Rack page with HTML. Easily host one page site with Heroku
 
+```
+use Rack::Static, 
+  :urls => ["/stylesheets", "/images"],
+  :root => "public"
+
+run lambda { |env|
+  [
+    200, 
+    {
+      'Content-Type'  => 'text/html', 
+      'Cache-Control' => 'public, max-age=86400' 
+    },
+    File.open('public/index.html', File::RDONLY)
+  ]
+}
+```
+
 MIT License
 =========
 Copyright (C) 2012, Jesse Wolgamott
